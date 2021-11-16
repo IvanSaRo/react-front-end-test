@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { getData } from '../services/service'
+import { Item } from './Item'
 import { Search } from './Search'
 
 export const ListView = () => {
@@ -12,14 +13,9 @@ export const ListView = () => {
     <div>
       <Search />
       <h1>ListView</h1>
-      {data.map((item) => {
+      {data?.map((item) => {
         return (
-          <pre key={item.id}>
-            <div>{item.brand}</div>
-            <div>{item.model}</div>
-            <div>{item.price}</div>
-            <img src={item.imgUrl} alt={item.model} />
-          </pre>
+          <Item key={item.id} {...item} />
         )
       })}
     </div>

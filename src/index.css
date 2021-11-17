@@ -3,3 +3,10 @@
   display: inline-block;
   cursor: pointer;
 }
+
+#pre {
+  display: block;
+  width: 100px;
+  color: red;
+  box-sizing: border-box;
+}

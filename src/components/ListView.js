@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getData } from '../services/service'
 import { Item } from './Item'
 import { Search } from './Search'
@@ -6,9 +6,13 @@ import { Search } from './Search'
 export const ListView = () => {
   const [data, setData] = useState(null)
 
-  getData().then((response) => {
-    setData(response.data)
-  })
+  useEffect(() => {
+    getData().then((response) => {
+      // console.log(response)
+      setData(response.data)
+    })
+  }, [])
+
   return (
     <div>
       <Search />

@@ -1,9 +1,9 @@
 import React from 'react'
 
-export const Search = () => {
+export const Search = ({ handleInputChange }) => {
   return (
-    <div>
-      <h1>Search</h1>
-    </div>
+
+    <input type='text' onChange={handleInputChange} placeholder='Introduzca marca o modelo' />
+
   )
 }

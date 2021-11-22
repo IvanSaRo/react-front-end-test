@@ -66,6 +66,10 @@ body {
   display: flex;
 }
 
+.productDetailsPage select {
+  margin-left: 1rem;
+}
+
 .productDetailsPage__imglink {
   display: flex;
   flex-direction: column;

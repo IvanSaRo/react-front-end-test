@@ -1,9 +1,9 @@
 import React from 'react'
 
-export const Cart = () => {
+export const Cart = ({ cart }) => {
   return (
     <div>
-      <h1>Cart</h1>
+      <h1>Cart {cart.length}</h1>
     </div>
   )
 }

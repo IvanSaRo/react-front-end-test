@@ -3,14 +3,14 @@ import { FaMobileAlt } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { Cart } from './Cart'
 
-export const Header = () => {
+export const Header = ({ cart }) => {
   return (
     <nav className='header'>
       <Link to='/' className='header__logo-container'>
         <FaMobileAlt className='header__logo' size='2rem' />
       </Link>
       <div className='header__cart'>
-        <Cart />
+        <Cart cart={cart} />
       </div>
     </nav>
   )

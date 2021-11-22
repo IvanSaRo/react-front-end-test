@@ -2,28 +2,34 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { getItemById } from '../services/service'
 
-export const ProductDetailsPage = () => {
+export const ProductDetailsPage = ({ setProduct, setCart, cart, checkPersistency }) => {
   const [data, setData] = useState(null)
   const [colorData, setColorData] = useState(null)
   const [storageData, setStorageData] = useState(null)
-  const [product, setProduct] = useState({ id: null, colorCode: null, storageCode: null })
-  console.log(product)
-
   const { id } = useParams()
 
-  const handleChangeSelect = (e) => {
-    console.log(e.target.id)
+  const handleChangeColor = (e) => {
+    setColorData(e.target.value)
   }
   const handleChangeStorage = (e) => {
-    console.log(e.target.id)
+    setStorageData(e.target.value)
   }
 
-  const handleClick = (e) => {
+  const handleClick = () => {
+    checkPersistency()
     setProduct({
       id: id,
       colorCode: colorData,
       storageCode: storageData
     })
+    setCart([...cart, {
+      id: id,
+      colorCode: colorData,
+      storageCode: storageData
+    }
+    ])
+    sessionStorage.setItem('cart', JSON.stringify(cart))
+    sessionStorage.setItem('date', JSON.stringify(new Date()))
   }
 
   useEffect(() => {
@@ -80,7 +86,7 @@ export const ProductDetailsPage = () => {
         </ul>
         <div className='productDetailsPage__data-colors-container'>
           <div>Colores: </div>
-          <select onChange={handleChangeSelect} id='color-select'>
+          <select onChange={handleChangeColor} id='color-select'>
             {data?.options.colors.map((color) => {
               return (
                 <option key={color.code} value={color.code}>{color.name}</option>

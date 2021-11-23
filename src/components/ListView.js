@@ -1,13 +1,13 @@
 /* eslint-disable func-call-spacing */
 /* eslint-disable no-unexpected-multiline */
 import React, { useEffect, useState } from 'react'
+import { checkPersistency } from '../helpers/helpers'
 import { getData } from '../services/service'
 import { Item } from './Item'
 import { Search } from './Search'
 
 export const ListView = () => {
-  const [data, setData] = useState()
-  const [dataSaved, setDataSaved] = useState()
+  const [data, setData] = useState([])
   const [reload, setReload] = useState(false)
 
   const handleInputChange = ({ target }) => {
@@ -17,15 +17,19 @@ export const ListView = () => {
   }
 
   useEffect(() => {
-    setData(dataSaved)
-  }, [reload, dataSaved])
-
-  useEffect(() => {
-    getData().then((response) => {
-      setData(response.data)
-      setDataSaved(response.data)
-    })
-  }, [])
+    const checkStorage = checkPersistency('datePetition', 'dataAPI')
+    if (checkStorage) {
+      const dataStored = sessionStorage.getItem('dataAPI')
+      console.log(JSON.parse(dataStored))
+      setData(JSON.parse(dataStored))
+    } else {
+      getData().then((response) => {
+        setData(response.data)
+        sessionStorage.setItem('dataAPI', JSON.stringify(response.data))
+        sessionStorage.setItem('datePetition', JSON.stringify(new Date()))
+      })
+    }
+  }, [reload])
 
   return (
     <div className='listView'>

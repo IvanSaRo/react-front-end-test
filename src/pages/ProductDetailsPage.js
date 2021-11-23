@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { ColorsStorage } from '../components/ColorsStorage'
+import { ImageDetail } from '../components/ImageDetail'
+import { PhoneDescription } from '../components/PhoneDescription'
 import { getItemById } from '../services/service'
 
-export const ProductDetailsPage = ({ setProduct, setCart, cart, checkPersistency }) => {
+export const ProductDetailsPage = ({ setProduct, setCart, cart, checkPersistencyCart }) => {
   const [data, setData] = useState(null)
   const [colorData, setColorData] = useState(null)
   const [storageData, setStorageData] = useState(null)
@@ -16,7 +19,7 @@ export const ProductDetailsPage = ({ setProduct, setCart, cart, checkPersistency
   }
 
   const handleClick = () => {
-    checkPersistency()
+    checkPersistencyCart()
     setProduct({
       id: id,
       colorCode: colorData,
@@ -40,71 +43,14 @@ export const ProductDetailsPage = ({ setProduct, setCart, cart, checkPersistency
       setColorData(colorSelect.value)
       setStorageData(storageSelect.value)
     })
-  }, [])
+  }, [id])
   return (
     <div className='productDetailsPage'>
-      <div className='productDetailsPage__imglink'>
-        <img src={data?.imgUrl} alt={data?.model} />
-        <Link to='/'>Volver</Link>
-      </div>
+      <ImageDetail data={data} />
       <div className='productDetailsPage__data'>
-        <ul className='productDetailsPage__data-char'>
-          <li>
-            <strong>Marca</strong>: {data?.brand}
-          </li>
-          <li>
-            <strong>Modelo</strong>: {data?.model}
-          </li>
-          <li>
-            <strong>Precio</strong>: {data?.price}€
-          </li>
-          <li>
-            <strong>CPU</strong>: {data?.cpu}
-          </li>
-          <li>
-            <strong>RAM</strong>: {data?.ram}
-          </li>
-          <li>
-            <strong>Sistema Operativo</strong>: {data?.os}
-          </li>
-          <li>
-            <strong>Resolucion de pantalla</strong>: {data?.displayResolution}
-          </li>
-          <li>
-            <strong>Bateria</strong>: {data?.battery}
-          </li>
-          <li>
-            <strong>Cámaras</strong>: {data?.primaryCamera}/
-            {data?.secondasryCamera}
-          </li>
-          <li>
-            <strong>Dimensiones</strong>: {data?.dimentions}
-          </li>
-          <li>
-            <strong>Peso</strong>: {data?.weight}{' '}
-          </li>
-        </ul>
-        <div className='productDetailsPage__data-colors-container'>
-          <div>Colores: </div>
-          <select onChange={handleChangeColor} id='color-select'>
-            {data?.options.colors.map((color) => {
-              return (
-                <option key={color.code} value={color.code}>{color.name}</option>
-              )
-            })}
-          </select>
-        </div>
-        <div className='productDetailsPage__data-storage-container'>
-          <div>Almacenamiento: </div>
-          <select onChange={handleChangeStorage} id='color-storage'>
-            {data?.options.storages.map((storage) => {
-              return (
-                <option key={storage.code} value={storage.code}>{storage.name}</option>
-              )
-            })}
-          </select>
-        </div>
-        <button className='btn btn-success' onClick={handleClick}>Añadir a cesta</button>
+        <PhoneDescription data={data} />
+        <ColorsStorage data={data} handleChangeColor={handleChangeColor} handleChangeStorage={handleChangeStorage} />
+        <button className='btn' onClick={handleClick}>Añadir a cesta</button>
       </div>
     </div>
   )

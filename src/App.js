@@ -14,7 +14,7 @@ function App () {
   const millennium = new Date(2000, 0, 1)
   const hourInMiliseconds = 3_600_000
 
-  const checkPersistency = () => {
+  const checkPersistencyCart = () => {
     const dateStored = new Date(JSON.parse(sessionStorage.getItem('date')))
     const dateStoredHours = Math.ceil((dateStored.getTime() - millennium.getTime())) / hourInMiliseconds
     const dateNowHours = Math.ceil((date.getTime() - millennium.getTime())) / hourInMiliseconds
@@ -28,9 +28,9 @@ function App () {
   }
 
   useEffect(() => {
-    const lastDate = JSON.parse(sessionStorage.getItem('date'))
-    if (lastDate) { console.log(lastDate) }
-    checkPersistency()
+    const lastDate = JSON.parse(sessionStorage.getItem('datePetition'))
+    // if (lastDate) { console.log(sessionStorage.getItem('dataAPI')) }
+    checkPersistencyCart()
   }, [])
 
   useEffect(() => {
@@ -41,7 +41,7 @@ function App () {
       <Header cart={cart} />
       <Routes>
         <Route path='/' element={<ProductListPage />} />
-        <Route path='/:id' element={<ProductDetailsPage product={product} setProduct={setProduct} setCart={setCart} cart={cart} checkPersistency={checkPersistency} />} />
+        <Route path='/:id' element={<ProductDetailsPage product={product} setProduct={setProduct} setCart={setCart} cart={cart} checkPersistencyCart={checkPersistencyCart} />} />
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>
     </>

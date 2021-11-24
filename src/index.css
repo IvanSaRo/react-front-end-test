@@ -186,6 +186,10 @@ body {
   width: 50%;
 }
 
+.productDetailsPage__data button {
+  cursor: pointer;
+}
+
 .productDetailsPage__data-colors-container {
   display: flex;
   justify-content: flex-start;

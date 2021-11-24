@@ -5,7 +5,7 @@ export const ImageDetail = ({ data }) => {
   return (
     <div className='productDetailsPage__imglink'>
       <img src={data?.imgUrl} alt={data?.model} />
-      <Link to='/'>Volver</Link>
+      <Link className='productDetailsPage__imglink-btn' to='/'>Volver</Link>
     </div>
   )
 }

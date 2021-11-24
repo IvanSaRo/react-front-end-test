@@ -6,7 +6,7 @@ import { getData } from '../services/service'
 import { Item } from './Item'
 import { Search } from './Search'
 
-export const ListView = () => {
+export const ListView = ({ setBreadcrumb }) => {
   const [data, setData] = useState([])
   const [reload, setReload] = useState(false)
 
@@ -19,9 +19,7 @@ export const ListView = () => {
   useEffect(() => {
     const checkStorage = checkPersistency('datePetition', 'dataAPI')
     if (checkStorage) {
-      const dataStored = sessionStorage.getItem('dataAPI')
-      console.log(JSON.parse(dataStored))
-      setData(JSON.parse(dataStored))
+      setData(JSON.parse(sessionStorage.getItem('dataAPI')))
     } else {
       getData().then((response) => {
         setData(response.data)
@@ -31,9 +29,15 @@ export const ListView = () => {
     }
   }, [reload])
 
+  useEffect(() => {
+    setBreadcrumb('')
+  }, [])
+
   return (
     <div className='listView'>
-      <div className='listView__search'><Search handleInputChange={handleInputChange} /></div>
+      <div className='listView__search'>
+        <Search handleInputChange={handleInputChange} />
+      </div>
       <div className='listView__items'>
         {data?.map((item) => {
           return (

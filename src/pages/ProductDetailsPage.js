@@ -5,7 +5,7 @@ import { ImageDetail } from '../components/ImageDetail'
 import { PhoneDescription } from '../components/PhoneDescription'
 import { getItemById } from '../services/service'
 
-export const ProductDetailsPage = ({ setProduct, setCart, cart, checkPersistencyCart }) => {
+export const ProductDetailsPage = ({ setProduct, setCart, cart, checkPersistencyCart, setBreadcrumb }) => {
   const [data, setData] = useState(null)
   const [colorData, setColorData] = useState(null)
   const [storageData, setStorageData] = useState(null)
@@ -37,6 +37,7 @@ export const ProductDetailsPage = ({ setProduct, setCart, cart, checkPersistency
 
   useEffect(() => {
     getItemById(id).then((response) => {
+      setBreadcrumb(response.data.model)
       setData(response.data)
       const colorSelect = document.getElementById('color-select')
       const storageSelect = document.getElementById('color-storage')

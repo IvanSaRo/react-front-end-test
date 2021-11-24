@@ -9,6 +9,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 6rem;
 }
 
 .header__logo-container {
@@ -16,12 +17,57 @@ body {
 }
 
 .header__logo {
-  color: aliceblue;
+  display: flex;
+  align-items: center;
+}
+
+.header__logo-icon {
+  color: #fff;
+}
+
+.header__logo-title {
+  color: #fff;
+  font-size: x-large;
 }
 
 .header__cart {
   margin-right: 2em;
+}  
+
+/* cart */
+
+.cart {
+  display: flex;
+  align-items: center;
 }
+
+.cart h1 {
+  color: #fff;
+  margin-left: .5rem;
+}
+
+.cart__logo {
+  color: #fff;
+}
+
+/* breadcrumbs */
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  justify-content:flex-end;
+}
+
+.breadcrumbs__home {
+  color: #fff;
+  text-decoration: none;
+  margin-right: .3rem;
+}
+
+
+.breadcrumb__navigate {
+  color: #fff;
+}
+
 
 /* productListPage */
 

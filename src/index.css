@@ -198,3 +198,12 @@ body {
   margin-left: 1rem;
 }
 
+@media (max-width: 950px) {
+  .item {
+    width: 40%;
+  }
+  .productDetailsPage {
+    flex-direction: column;
+    align-items: center;
+  }
+}

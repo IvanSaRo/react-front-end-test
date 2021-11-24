@@ -177,7 +177,11 @@ body {
   margin: 0 auto;
 }
 
+
 .productDetailsPage__data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 3rem;
   width: 50%;
 }
@@ -206,11 +210,7 @@ body {
     flex-direction: column;
     align-items: center;
   }
-  .productDetailsPage__data {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  
   .productDetailsPage__data button {
     margin: 1rem auto;
   }

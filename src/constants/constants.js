@@ -1,5 +1,6 @@
 export const ENDPOINTS = {
-  GET_DATA_BASE_URL: 'https://front-test-api.herokuapp.com/api/product/'
+  GET_DATA_BASE_URL: 'https://front-test-api.herokuapp.com/api/product/',
+  POST_ITEM_BASE_URL: 'https://front-test-api.herokuapp.com/api/cart'
 }
 
 export const fakeData = [

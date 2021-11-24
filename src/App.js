@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { Header } from './components/Header'
+import { checkPersistency } from './helpers/helpers'
 import { ProductDetailsPage } from './pages/ProductDetailsPage'
 import { ProductListPage } from './pages/ProductListPage'
 
@@ -15,28 +16,14 @@ function App () {
   const [cart, setCart] = useState(sessionStorage.getItem('cart') || [])
   const [breadcrumb, setBreadcrumb] = useState('')
 
-  const date = new Date()
-  const millennium = new Date(2000, 0, 1)
-  const hourInMiliseconds = 3_600_000
-
-  const checkPersistencyCart = () => {
-    const dateStored = new Date(JSON.parse(sessionStorage.getItem('date')))
-    const dateStoredHours =
-      Math.ceil(dateStored.getTime() - millennium.getTime()) /
-      hourInMiliseconds
-    const dateNowHours =
-      Math.ceil(date.getTime() - millennium.getTime()) / hourInMiliseconds
-
-    if (dateNowHours - dateStoredHours <= 1) {
+  useEffect(() => {
+    const checkStorage = checkPersistency('date', 'cart')
+    if (checkStorage) {
       setCart(JSON.parse(sessionStorage.getItem('cart')))
     } else {
       setCart([])
       sessionStorage.setItem('cart', [])
     }
-  }
-
-  useEffect(() => {
-    checkPersistencyCart()
   }, [])
 
   useEffect(() => {
@@ -55,7 +42,6 @@ function App () {
               setProduct={setProduct}
               setCart={setCart}
               cart={cart}
-              checkPersistencyCart={checkPersistencyCart}
               setBreadcrumb={setBreadcrumb}
             />
           }

@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom'
 import { ColorsStorage } from '../components/ColorsStorage'
 import { ImageDetail } from '../components/ImageDetail'
 import { PhoneDescription } from '../components/PhoneDescription'
-import { getItemById } from '../services/service'
+import { getItemById, postItem } from '../services/service'
 
-export const ProductDetailsPage = ({ setProduct, setCart, cart, checkPersistencyCart, setBreadcrumb }) => {
+export const ProductDetailsPage = ({ setProduct, setCart, cart, setBreadcrumb }) => {
   const [data, setData] = useState(null)
   const [colorData, setColorData] = useState(null)
   const [storageData, setStorageData] = useState(null)
@@ -18,21 +18,27 @@ export const ProductDetailsPage = ({ setProduct, setCart, cart, checkPersistency
     setStorageData(e.target.value)
   }
 
-  const handleClick = () => {
-    checkPersistencyCart()
-    setProduct({
+  const handleClick = async () => {
+    const response = await postItem({
       id: id,
       colorCode: colorData,
       storageCode: storageData
     })
-    setCart([...cart, {
-      id: id,
-      colorCode: colorData,
-      storageCode: storageData
+    if (response.status) {
+      setProduct({
+        id: id,
+        colorCode: colorData,
+        storageCode: storageData
+      })
+      setCart([...cart, {
+        id: id,
+        colorCode: colorData,
+        storageCode: storageData
+      }
+      ])
+      sessionStorage.setItem('cart', JSON.stringify(cart))
+      sessionStorage.setItem('date', JSON.stringify(new Date()))
     }
-    ])
-    sessionStorage.setItem('cart', JSON.stringify(cart))
-    sessionStorage.setItem('date', JSON.stringify(new Date()))
   }
 
   useEffect(() => {

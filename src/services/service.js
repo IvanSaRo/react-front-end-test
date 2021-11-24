@@ -29,3 +29,18 @@ export const getItemById = async (id) => {
     console.log(error)
   }
 }
+
+export const postItem = async (item) => {
+  try {
+    const response = await axios.post(ENDPOINTS.POST_ITEM_BASE_URL, item)
+    const isResponseOk = response.data.length !== 0
+
+    if (isResponseOk) {
+      return response
+    } else {
+      console.log('error')
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}

@@ -5,7 +5,6 @@ export const checkPersistency = (dateField, data) => {
 
   const dateStored = new Date(JSON.parse(sessionStorage.getItem(dateField)))
 
-  // console.log(sessionStorage.getItem(data))
   if (!dateStored) { return false }
   if (!sessionStorage.getItem(data)) { return false }
   const dateStoredHours = Math.ceil((dateStored.getTime() - millennium.getTime())) / hourInMiliseconds
